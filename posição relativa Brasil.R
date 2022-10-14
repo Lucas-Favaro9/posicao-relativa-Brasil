@@ -59,9 +59,7 @@ for(i in as.character(1800:2021)){
 pa <- bind_rows(lista)
 
 # Colocando a posição em termos relativos
-x <- 1 / 155
-
-pa %<>% mutate(percentil = posição * x)
+pa %<>% mutate(percentil = 100 - (posição * 100 / 155))
 
 # Pegando de 5 em 5 anos (melhora a visualização no gráfico)
 p1 <- function(x){
@@ -85,7 +83,7 @@ ggplot(pa2, aes(x = ano, y = percentil)) +
   geom_point(size = 2) +
   labs(x = "", y = "Percentil") +
   scale_x_discrete(breaks = seq(1800, 2021, 20)) +
-  scale_y_continuous(breaks = c(0, .1,.2,.3,.4,.5,.6,.7,.8,.9, 1), limits = c(0,1)) +
+  scale_y_continuous(breaks = c(0,10,20,30,40,50,60,70,80,90,100), limits = c(0,100)) +
   theme(text = element_text(family = 'Montserrat'),
         axis.title = element_text(size = 70),
         axis.text = element_text(size = 60))
